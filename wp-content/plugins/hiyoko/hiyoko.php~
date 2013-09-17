@@ -1,0 +1,29 @@
+<?php
+/*
+Plugin Name: ひよこ
+Description: フォームの作成
+Author: koizumi
+Version: 1.0.0
+*/
+
+add_filter('the_content', 'hiyoko');
+
+function hiyoko($content){
+  return str_replace('。','(^o^)',$content);
+}
+add_action('admin_menu','hiyoko_menu');
+
+function hiyoko_menu(){
+	add_menu_page('ひよこ','ひよこ','administrator','hiyoko','hiyoko');
+}
+add_action('admin_menu','addquicktag_menu');
+function addquicktag_menu(){
+add_menu_page(
+				'ひよこ',
+				parent :: get_plugin_data( 'Name' ) . ' ' . __( 'Settings', $this->get_textdomain() ),
+				parent :: get_plugin_data( 'Name' ),
+				'manage_options',
+				plugin_basename(__FILE__),
+				array( $this, 'ひよこ' )
+			);
+}
